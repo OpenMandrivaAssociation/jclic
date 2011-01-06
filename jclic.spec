@@ -2,18 +2,32 @@ Summary:	Authoring and playing system for educational activities
 Name:		jclic
 Group:		Education
 Version:	0.2.1.0
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	GPL
 Url:		http://projectes.lafarga.cat/projects/jclic
 Source0:	http://projectes.lafarga.cat/projects/jclic/downloads/files/4342/jclic-0.2.1.0-src.zip
+Source1:	jclic.1
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 #-------------------------------------------------------------------------------
 BuildRequires:	ant
+
+# TODO (if possible to use opensource fmj instead of (non redistributable?) jmf)
+#BuildRequires:	ant-jmf
 BuildRequires:	ant-nodeps
 BuildRequires:	imagemagick
 BuildRequires:	java-rpmbuild
 BuildRequires:	jpackage-utils
+
+# TODO (if possible to use opensource fmj instead of (non redistributable?) jmf)
+#Requires:	fmj
+
+#-------------------------------------------------------------------------------
+# Auto detect/use pt_BR instead of pt_PT; should work on other locale variants
+Patch0:		jclic-0.2.1.0-locale.patch
+
+# Default to xgd-open instead of mozilla
+Patch1:		jclic-0.2.1.0-browser.patch
 
 #-------------------------------------------------------------------------------
 %description
@@ -24,6 +38,9 @@ associations, text exercises or crosswords.
 #-----------------------------------------------------------------------
 %prep
 %setup -q -n %{name}-%{version}-src
+
+%patch0 -p1
+%patch1 -p1
 
 #-----------------------------------------------------------------------
 %build
@@ -42,15 +59,15 @@ popd
 mkdir -p %{buildroot}%{_bindir}
 cat > %{buildroot}%{_bindir}/jclic << EOF
 #!/bin/sh
-java -jar %{_datadir}/%{name}/%{name}/jclic.jar
+java -jar %{_datadir}/%{name}/%{name}/jclic.jar "\$@"
 EOF
 cat > %{buildroot}%{_bindir}/jclicauthor << EOF
 #!/bin/sh
-java -Xmx256m -jar %{_datadir}/%{name}/%{name}/jclicauthor.jar
+java -Xmx256m -jar %{_datadir}/%{name}/%{name}/jclicauthor.jar "\$@"
 EOF
 cat > %{buildroot}%{_bindir}/jclicreports << EOF
 #!/bin/sh
-java -jar %{_datadir}/%{name}/%{name}/jclicreports.jar
+java -jar %{_datadir}/%{name}/%{name}/jclicreports.jar "\$@"
 EOF
 chmod +x %{buildroot}%{_bindir}/*
 
@@ -68,18 +85,27 @@ pushd dist/jclic/icons
     convert -resize 16x16 $file %{buildroot}%{_miconsdir}/$icon
     convert -resize 32x32 $file %{buildroot}%{_iconsdir}/$icon
     install -m644 -D $file %{buildroot}%{_liconsdir}/$icon
+    case $app in
+	author)		desk="JClic Author"		;;
+	reports)	desk="JClic Report Server"	;;
+	*)		desk="JClic"			;;
+    esac
 cat > %{buildroot}%{_datadir}/applications/mandriva-$name.desktop << EOF
 [Desktop Entry]
-Name=$name
+Name=$desk
 Comment=Authoring and playing system for educational activities
 Exec=$name
-Icon=%{name}
+Icon=$icon
 Terminal=false
 Type=Application
-Categories=Education
+Categories=Education;
 EOF
     done
 popd
+
+mkdir -p %{buildroot}%{_mandir}/man1
+cp %{SOURCE1} %{buildroot}%{_mandir}/man1
+xz -z %{buildroot}%{_mandir}/man1/jclic.1
 
 #-----------------------------------------------------------------------
 %clean
@@ -94,3 +120,4 @@ rm -rf %{buildroot}
 %{_iconsdir}/*.png
 %{_liconsdir}/*.png
 %{_datadir}/applications/*.desktop
+%{_mandir}/man1/jclic.1*
