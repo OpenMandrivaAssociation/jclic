@@ -2,7 +2,7 @@ Summary:	Authoring and playing system for educational activities
 Name:		jclic
 Group:		Education
 Version:	0.2.1.0
-Release:	%mkrel 2
+Release:	%mkrel 3
 License:	GPL
 Url:		http://projectes.lafarga.cat/projects/jclic
 Source0:	http://projectes.lafarga.cat/projects/jclic/downloads/files/4342/jclic-0.2.1.0-src.zip
@@ -11,16 +11,12 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 #-------------------------------------------------------------------------------
 BuildRequires:	ant
-
-# TODO (if possible to use opensource fmj instead of (non redistributable?) jmf)
-#BuildRequires:	ant-jmf
+BuildRequires:	ant-jmf
 BuildRequires:	ant-nodeps
 BuildRequires:	imagemagick
 BuildRequires:	java-rpmbuild
 BuildRequires:	jpackage-utils
-
-# TODO (if possible to use opensource fmj instead of (non redistributable?) jmf)
-#Requires:	fmj
+Requires:	fmj
 
 #-------------------------------------------------------------------------------
 # Auto detect/use pt_BR instead of pt_PT; should work on other locale variants
@@ -59,7 +55,7 @@ popd
 mkdir -p %{buildroot}%{_bindir}
 cat > %{buildroot}%{_bindir}/jclic << EOF
 #!/bin/sh
-java -jar %{_datadir}/%{name}/%{name}/jclic.jar "\$@"
+LD_LIBRARY_PATH=%{_libdir}/fmj java -classpath %{_datadir}/%{name}/%{name}/jclic.jar:`%{_bindir}/build-classpath fmj` JClicPlayer "\$@"
 EOF
 cat > %{buildroot}%{_bindir}/jclicauthor << EOF
 #!/bin/sh
