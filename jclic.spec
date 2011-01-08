@@ -2,7 +2,7 @@ Summary:	Authoring and playing system for educational activities
 Name:		jclic
 Group:		Education
 Version:	0.2.1.0
-Release:	%mkrel 3
+Release:	%mkrel 4
 License:	GPL
 Url:		http://projectes.lafarga.cat/projects/jclic
 Source0:	http://projectes.lafarga.cat/projects/jclic/downloads/files/4342/jclic-0.2.1.0-src.zip
@@ -17,6 +17,7 @@ BuildRequires:	imagemagick
 BuildRequires:	java-rpmbuild
 BuildRequires:	jpackage-utils
 Requires:	fmj
+Requires:	tritonus
 
 #-------------------------------------------------------------------------------
 # Auto detect/use pt_BR instead of pt_PT; should work on other locale variants
@@ -55,7 +56,7 @@ popd
 mkdir -p %{buildroot}%{_bindir}
 cat > %{buildroot}%{_bindir}/jclic << EOF
 #!/bin/sh
-LD_LIBRARY_PATH=%{_libdir}/fmj java -classpath %{_datadir}/%{name}/%{name}/jclic.jar:`%{_bindir}/build-classpath fmj` JClicPlayer "\$@"
+LD_LIBRARY_PATH=%{_libdir}/fmj java -classpath %{_datadir}/%{name}/%{name}/jclic.jar:\`%{_bindir}/build-classpath fmj\` JClicPlayer "\$@"
 EOF
 cat > %{buildroot}%{_bindir}/jclicauthor << EOF
 #!/bin/sh
