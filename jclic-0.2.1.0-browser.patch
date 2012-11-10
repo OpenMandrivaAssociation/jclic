@@ -1,0 +1,21 @@
+diff -p -up jclic-0.2.1.0-src/src/utilities/edu/xtec/util/BrowserLauncher.java.orig jclic-0.2.1.0-src/src/utilities/edu/xtec/util/BrowserLauncher.java
+--- jclic-0.2.1.0-src/src/utilities/edu/xtec/util/BrowserLauncher.java.orig	2011-01-06 15:10:36.063869069 -0200
++++ jclic-0.2.1.0-src/src/utilities/edu/xtec/util/BrowserLauncher.java	2011-01-06 15:10:48.724868973 -0200
+@@ -252,7 +252,7 @@ public class BrowserLauncher {
+             setPreferredBrowser("iexplore");
+         } else {
+             jvm = OTHER;
+-            setPreferredBrowser("mozilla");
++            setPreferredBrowser("xdg-open");
+         }
+         
+         if (loadedWithoutErrors) { // if we haven't hit any errors yet
+@@ -488,7 +488,7 @@ public class BrowserLauncher {
+             default:
+                 // Changed by fbusquets: use "mozilla" as generic browser instead of "netscape"
+                 //browser = "netscape";
+-                browser = getPreferredBrowser("mozilla");
++                browser = getPreferredBrowser("xdg-open");
+                 break;
+         }
+         return browser;

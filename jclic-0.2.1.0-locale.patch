@@ -1,0 +1,26 @@
+diff -p -up jclic-0.2.1.0-src/src/utilities/edu/xtec/util/Messages.java.orig jclic-0.2.1.0-src/src/utilities/edu/xtec/util/Messages.java
+--- jclic-0.2.1.0-src/src/utilities/edu/xtec/util/Messages.java.orig	2011-01-06 14:36:04.884869026 -0200
++++ jclic-0.2.1.0-src/src/utilities/edu/xtec/util/Messages.java	2011-01-06 14:47:21.642868995 -0200
+@@ -147,14 +147,14 @@ public class Messages {
+     }
+     
+     public void setLocale(String language, String country, String variant) {
+-        Locale l=null;
+-        if(country==null) country="";
+-        if(language==null || language.length()==0)
+-            l= (currentLocale==null ? Locale.getDefault() : currentLocale);
+-        else if(variant==null || variant.length()==0)
+-            l=new Locale(language, country);
+-        else
+-            l=new Locale(language, country, variant);                
++        Locale l = null;
++       if(language == null)
++	    language = Locale.getDefault().getLanguage();
++        if(country == null)
++	    country = Locale.getDefault().getCountry();
++        if(variant == null)
++	    variant = Locale.getDefault().getVariant();
++	l = new Locale(language, country, variant);
+         if(!l.equals(currentLocale)){
+             currentLocale=l;
+             numberFormat=java.text.NumberFormat.getInstance(currentLocale);
