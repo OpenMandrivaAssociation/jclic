@@ -118,3 +118,26 @@ rm -rf %{buildroot}
 %{_liconsdir}/*.png
 %{_datadir}/applications/*.desktop
 %{_mandir}/man1/jclic.1*
+
+
+%changelog
+* Sat Jan 08 2011 Paulo Andrade <pcpa@mandriva.com.br> 0.2.1.0-4mdv2011.0
++ Revision: 630388
+- Add requires of tritonus meta-package to install all media handlers
+- Correct generation of the jclic script by escaping backquote in spec
+
+* Fri Jan 07 2011 Paulo Andrade <pcpa@mandriva.com.br> 0.2.1.0-3mdv2011.0
++ Revision: 629682
+- Use fmj instead of missing requirement of jfm
+
+* Thu Jan 06 2011 Paulo Andrade <pcpa@mandriva.com.br> 0.2.1.0-2mdv2011.0
++ Revision: 629180
+- Automatically detect locale country
+- Use xdg-open as default browser
+- Add debian jclic manpage
+
+* Wed Jan 05 2011 Paulo Andrade <pcpa@mandriva.com.br> 0.2.1.0-1mdv2011.0
++ Revision: 628855
+- Import jclic 0.2.1.0
+- jclic
+
