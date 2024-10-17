@@ -4,7 +4,7 @@ Group:		Education
 Version:	0.2.1.0
 Release:	%mkrel 4
 License:	GPL
-Url:		http://projectes.lafarga.cat/projects/jclic
+Url:		https://projectes.lafarga.cat/projects/jclic
 Source0:	http://projectes.lafarga.cat/projects/jclic/downloads/files/4342/jclic-0.2.1.0-src.zip
 Source1:	jclic.1
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
