@@ -2,7 +2,7 @@ Summary:	Authoring and playing system for educational activities
 Name:		jclic
 Group:		Education
 Version:	0.2.1.0
-Release:	%mkrel 4
+Release:	5
 License:	GPL
 Url:		https://projectes.lafarga.cat/projects/jclic
 Source0:	http://projectes.lafarga.cat/projects/jclic/downloads/files/4342/jclic-0.2.1.0-src.zip
